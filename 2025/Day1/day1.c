@@ -17,14 +17,14 @@ int processInput(char *filePath, int startingPoint){
     int curr_position = startingPoint;
 
     while(fgets(line, sizeof(line), file)){
-        // Trim newline characters (essential for reliable parsing)
+        // Trim newlines
         line[strcspn(line, "\r\n")] = 0; 
         
-        // Skip empty lines to prevent atoi returning 0 erroneously
+        // Skip empty lines
         if(strlen(line) < 2) continue;
 
         char direction = line[0];
-        // atoi(line + 1) handles the number after 'L' or 'R'
+    
         int value = atoi(line + 1);
 
         for(int i = 0; i < value; i++){
@@ -43,9 +43,6 @@ int processInput(char *filePath, int startingPoint){
                 }
             }
             
-            // THE FIX: Check for 0 here. 
-            // This catches 99->0 (Left) AND 1->0 (Right).
-            // It ensures you count it even if you stop on 0 or reverse direction at 0.
             if(curr_position == 0){
                 answer++;
             }
